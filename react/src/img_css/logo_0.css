@@ -1,0 +1,25 @@
+.double-square {
+  margin: auto;
+  padding-left: 1.5em;
+  position: relative
+}
+
+.double-square::before {
+  border: 2px solid gray;
+  content: "";
+  height: .8em;
+  left: .4em;
+  position: absolute;
+  top: 0;
+  width: .8em
+}
+
+.double-square::after {
+  border: 2px solid red;
+  content: "";
+  height: .8em;
+  left: 0;
+  position: absolute;
+  top: .4em;
+  width: .8em
+}

@@ -1,0 +1,92 @@
+/* About Me タイトル */
+.about-title {
+    background-color: #f8f4e6;
+    justify-content: center;
+    text-align: center;
+    font-size: 3em;
+    padding: 20px 0;
+}
+
+/* About Me セクション */
+.about-me {
+    
+    box-sizing: border-box;
+    background-color: #f8f4e6;
+    display: flex;
+    justify-content: center; /* セクション全体を中央に配置 */
+    align-items: center;
+    padding: 20px;
+}
+
+/* プロフィールのレイアウト */
+.profile {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row; /* 大きい画面では横並び */
+    
+}
+
+/* プロフィール画像のスタイル */
+.profile-img {
+    margin: 10px; /* 画像とテキストの間にスペースを追加 */
+    background-image: url('../img/UWlM_ycI_400x400.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; /* 画像をコンテナに収める */
+    width: 400px;
+    height: 400px;
+    border-radius: 50%; /* 画像を丸く表示 */
+}
+
+/* プロフィールテキストのスタイル */
+.profile-text {
+    padding: 10px;
+    width: 600px;
+    text-align: left;
+}
+
+/* メディアクエリでレスポンシブ対応 */
+@media (max-width: 768px) {
+    .about-title {
+        font-size: 2em; /* タブレットサイズのタイトルを少し小さく */
+    }
+
+    .profile {
+        flex-direction: column; /* 小さい画面では縦並びに変更 */
+        align-items: center;
+    }
+
+    .profile-img {
+        width: 300px;
+        height: 300px; /* 画像のサイズを小さく */
+    }
+
+    .profile-text {
+        width: 90%; /* テキストエリアを画面幅に合わせる */
+    }
+    .profile-text768 {
+        text-align: center
+    }
+}
+
+@media (min-width: 769px) {
+    .about-me {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-title {
+        font-size: 1.5em; /* スマートフォンサイズのタイトルをさらに小さく */
+    }
+
+    .profile-img {
+        width: 200px;
+        height: 200px; /* さらに画像を小さく */
+    }
+
+    .profile-text {
+        width: 100%;
+        padding: 5px;
+        font-size: 0.9em; /* テキストも少し小さく */
+    }
+}

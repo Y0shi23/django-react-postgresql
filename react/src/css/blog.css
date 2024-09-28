@@ -1,0 +1,41 @@
+/* 全体のリセット */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #4a90e2;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+code {
+    display: block;
+    background: #f4f4f4;
+    padding: 10px;
+    border-left: 5px solid #4a90e2;
+    margin: 10px 0;
+    font-family: 'Courier New', Courier, monospace;
+    overflow-x: auto;
+}

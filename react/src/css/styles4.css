@@ -1,0 +1,143 @@
+/* styles.css */
+
+/* 全体のリセット */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* ボディのスタイル */
+body {
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ヘッダーとナビゲーションバー */
+header {
+  background: #333;
+  color: #fff;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  background: #555;
+  border-radius: 5px;
+}
+
+/* メインコンテンツ */
+main {
+  padding: 20px;
+  max-width: 1200px;
+}
+
+/* カードを横に並べるスタイル */
+#articles {
+  display: flex;
+  flex-wrap: wrap; /* カードを折り返す設定 */
+  gap: 20px;
+  /* 中央に揃える */
+  /*justify-content: center;*/
+}
+
+/* カードスタイルの各記事 */
+#articles article {
+  display: flex; /* Flexboxを追加 */
+  flex-direction: column; /* 縦方向に配置 */
+  justify-content: space-between; /* 上下の要素間を均等に配置 */
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  flex: 1 1 calc(100% - 20px);
+  max-width: calc(100% - 20px);
+}
+
+/* サムネイル画像のスタイル */
+#articles img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* 記事のタイトルと本文 */
+#articles h2 {
+  margin: 15px;
+  font-size: 1.3em;
+}
+/* カテゴリースタイル */
+.categories {
+  display: flex;
+  gap: 10px;
+  margin: 10px 15px;
+}
+
+.category {
+  background-color: #ddd;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+/* 記事の本文 */
+#articles p {
+  flex: 1; /* 高さを自動調整 */
+  margin: 0 15px 15px 15px;
+}
+
+/* 続きを読むリンク */
+#articles a {
+  margin: 15px;
+  padding: 10px;
+  background: #0066cc;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+#articles a:hover {
+  background: #003366;
+}
+
+/* フッター */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #333;
+  color: #fff;
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* PCでカードを3つまで横に並べるスタイル */
+@media (min-width: 768px) {
+  #articles article {
+      flex: 1 1 calc(33.33% - 20px); /* 画面幅が768px以上の時は3列 */
+      max-width: calc(33.33% - 20px);
+  }
+}

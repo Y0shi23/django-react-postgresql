@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <title>blog</title>
+    </head>
+    <body>
+        <h1>日記</h1>
+        <p>{{ datetime_now }}</p>
+        <!-- templates/article_detail.html -->
+        <h1>{{ article.title }}</h1>
+        <div>
+            {{ article_content|safe }} <!-- 変換済みのHTMLを表示 -->
+        </div>
+    </body>
+</html>

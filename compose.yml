@@ -1,0 +1,90 @@
+services:
+  git-container:
+    build:
+      context: .
+      dockerfile: ./git-container/Dockerfile
+    volumes:
+      - ./:/var/www/
+      - ./.ssh:/root/.ssh
+    tty: true
+
+  # react.js
+  react:
+    image: node:latest
+    environment:
+      - NODE_ENV=development
+      # localhost接続をする際に必要
+      - HOST=0.0.0.0 
+      # ホットリロードを可能にする
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./react:/usr/src/app/my-app
+      - ./react/dist:/usr/src/app/my-app/dist
+      - ./react/src:/usr/src/app/my-app/src
+    ports:
+      - "5173:5173"
+    command: bash -c "cd /usr/src/app/my-app && npm install -g vite && npm run dev -- --host"
+    tty: true
+    networks:
+      - mynetwork
+  # Python(Django)
+  django:
+    build:
+      context: ./django
+      dockerfile: Dockerfile
+    # 使用するポートの設定
+    ports:
+      - "8000:8000"
+    command: ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+    env_file:
+      - .env
+    # 対話的なセッションやコマンドラインの操作を許可する
+    tty: true
+    # ローカルの作業ディレクトリと仮想環境の作業ディレクトリの対応づけ
+    volumes:
+      - ./django:/app
+    networks:
+      - mynetwork
+    depends_on:
+      - db
+      
+  # PostgreSQL
+  db:
+    image: postgres:16.4
+    ports:
+      - 5432:5432
+    volumes:
+      - ./PostgreSQL:/var/lib/postgresql/data
+    #  - ./db:/var/log
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB : ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      DB_PORT: ${DB_PORT}
+    networks:
+      - mynetwork
+      
+  # リバースプロキシ設定
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/nginx.conf:ro
+      # ReactのビルドファイルをNginxにマウント
+      - ./react:/usr/src/app/my-app/
+      # Reactのビルドディレクトリをマウント
+      - ./react/dist:/usr/src/app/my-app/dist
+      # Reactのビルドディレクトリをマウント
+      - ./react/src:/usr/src/app/my-app/src
+      
+    depends_on:
+      - react
+      - django
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
