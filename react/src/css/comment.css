@@ -1,0 +1,118 @@
+.comment-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color: #333;
+}
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-name, .input-comment {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.submit-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+}
+
+.comment-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-date {
+  font-size: 0.8em;
+  color: #999;
+}
+
+.comment-body {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.comment-footer {
+  display: flex;
+  align-items: center;
+}
+
+.like-button {
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 20px;  /* ボタンの角の丸みを調整 */
+  padding: 5px 10px;    /* ボタン全体のパディングを小さく */
+  color: #333;
+  font-size: 14px;      /* テキストのサイズを小さく */
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.like-button:hover {
+  background-color: #f9f9f9;
+}
+
+.heart-icon {
+  font-size: 18px;      /* ハートアイコンのサイズを小さく */
+  margin-right: 5px;    /* ハートとテキストの間隔を調整 */
+  color: #ff4b4b;
+  transition: transform 0.3s ease;
+}
+
+.liked .heart-icon {
+  transform: scale(1.1);  /* ハートを少し大きくなる効果を小さく */
+}

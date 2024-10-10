@@ -1,6 +1,7 @@
 function Comment() {
     return (
         <>
+
         <div className="comment-section">
             <div className="comment">
                 <div className="comment-header">
@@ -17,11 +18,11 @@ function Comment() {
                     <span>❤️ 1</span>
                 </div>
             </div>
-        <div className="comment-input">
-            <textarea placeholder="テキストを入力"></textarea>
-            <button className="submit-btn">投稿する</button>
+            <div className="comment-input">
+                <textarea placeholder="テキストを入力"></textarea>
+                <button className="submit-btn">投稿する</button>
+            </div>
         </div>
-    </div>
     </>
     )
 }

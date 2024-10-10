@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブログページ</title>
+    <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+    <div class="blog-container">
+        <h1>ブログタイトル</h1>
+        <p>ここにブログの内容が表示されます。内容を詳細に書いてください。</p>
+
+        <h2>サブタイトル1</h2>
+        <p>ここにサブタイトル1の内容が表示されます。</p>
+
+        <h2>サブタイトル2</h2>
+        <code>
+            // ソースコードの例
+            console.log('Hello, World!');
+        </code>
+        <p>ソースコードについての説明や内容を記述します。</p>
+
+        <h2>サブタイトル3</h2>
+        <p>サブタイトル3の内容を記述します。</p>
+<div class="comment-section">
+      <h3>コメント</h3>
+
+        <div key={index} class="comment">
+          <div class="comment-header">
+            <div class="comment-info">
+              <span class="comment-name">ユーザー名</span>
+            </div>
+          </div>
+          <div class="comment-body">
+            <p>こめんとこめんとこめんとこめんとこめんとこめんとこめんとこめんとこめんとこめんと</p>
+          </div>
+          <div class="comment-footer">
+            <div class="like-button-container">
+            {id && <Likes postId={id} />}
+            </div>
+          </div>
+        </div>
+      <form onSubmit={handleAddComment} class="comment-form">
+        <input
+          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          placeholder="名前を入力してください"
+          required
+          class="input-name"
+        />
+        <textarea
+          value={commentText}
+          onChange={e => setCommentText(e.target.value)}
+          placeholder="コメントを入力してください"
+          rows={3}
+          required
+          class="input-comment"
+        ></textarea>
+        <button type="submit" class="submit-button">
+          コメントを投稿
+        </button>
+      </form>
+    </div>
+    </div>
+</body>
+</html>

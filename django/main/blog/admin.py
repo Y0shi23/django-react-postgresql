@@ -3,7 +3,7 @@ from django.contrib import admin
 # from django.conf import settings
 from django.templatetags.static import static
 
-from blog.models import Category_Master, Articles, Post_Articles, Comments
+from blog.models import Category_Master, Articles, Post_Articles, Comment, Likes
 
 class PostArticlesInline(admin.TabularInline):
     model = Post_Articles
@@ -23,7 +23,11 @@ class PostArticlesAdmin(admin.ModelAdmin):
 class CategoryMasterAdmin(admin.ModelAdmin):
     readonly_fields = ["id", "created_at"]
 
-@admin.register(Comments)
-class CategoryMasterAdmin(admin.ModelAdmin):
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    readonly_fields = ["id", "created_at"]
+
+@admin.register(Likes)
+class LikesAdmin(admin.ModelAdmin):
     readonly_fields = ["id", "created_at"]
 

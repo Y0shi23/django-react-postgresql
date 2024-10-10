@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { addStylesheet } from '../function/function_list';
+import { addStylesheet, fetchData } from '../function/function_list';
+/* components */ 
+import Header2 from './Header2';
 
 // 記事データの型定義
 type Article = {
@@ -24,30 +26,23 @@ const BlogCard: React.FC = () => {
     // エラーメッセージ
     const [error, setError] = useState<string | null>(null);
 
+    // Component.tsx
+    const fetchPosts = async () => {
+        const data = await fetchData<ApiResponse>(`http://fumi042-server.top/api/blog/`);
+    
+        if (data) { // エラーが発生していない場合
+            setArticles(data.members);
+            addStylesheet('static/css/styles4.css');
+    
+        } else {
+            setError('データの取得に失敗しました。');
+            console.error('Failed to fetch posts.');
+        }
+        setLoading(false)
+    };
+
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await fetch('http://fumi042-server.top/api/blog/');
-                if (!response.ok) {
-                    throw new Error('データの取得に失敗しました');
-                }
-                const data: ApiResponse = await response.json();
-                addStylesheet('static/css/styles4.css')
-
-                // JSONからmembers配列を取り出す
-                setArticles(data.members);
-            } catch (error: unknown) {
-                if (error instanceof Error) {
-                    setError(error.message);
-                } else {
-                    setError('予期しないエラーが発生しました');
-                }
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchPosts(); // コンポーネントのマウント時にデータを取得
+        fetchPosts();
     }, []);
 
     if (loading) {
@@ -61,6 +56,7 @@ const BlogCard: React.FC = () => {
     return (
         <>
             <main>
+                <Header2 />
                 <h1>ブログサイトへようこそ</h1>
                 <div id="articles">
                     {articles.map((article: Article) => (

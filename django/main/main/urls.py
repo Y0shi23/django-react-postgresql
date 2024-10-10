@@ -17,13 +17,17 @@ Including another URLconf
 # main/urls.py
 from django.contrib import admin
 from django.urls import path, include
-from blog.views import index, article_detail, articles_all  # blog.viewsのindexを直接インポート
+# blog.viewsのindexを直接インポート
+from blog.viewses import index
+from blog.views.api import ArticlesView, ArticlesViewAll, LikePost, PostCommentView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),  # blogアプリのURL設定をインクルード
-    path('api/blog/', articles_all, name='article_detail'),
-    path('api/blog/<uuid:pk>', article_detail, name='article_detail'),
+    path('api/blog/', ArticlesViewAll.as_view(), name='article_detail'),
+    path('api/blog/<uuid:pk>', ArticlesView.as_view(), name='article_detail'),
+    path('api/blog/<uuid:post_id>/like/', LikePost.as_view(), name='article_detail'),
+    path('api/blog/<uuid:post_id>/comment/', PostCommentView.as_view(), name='article_detail'),
     # path('detail/<uuid:pk>/', views.article_detail, name='article_detail'),  # 記事詳細ビューを直接指定
     path('', index, name='index'),  # インデックスページを指定
 ]
