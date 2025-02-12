@@ -1,9 +1,9 @@
 from django.contrib import admin
-# from django.contrib.admin.sites import AdminSite
-# from django.conf import settings
+from django.contrib.admin.sites import AdminSite
+from django.conf import settings
 from django.templatetags.static import static
 
-from blog.models import Category_Master, Articles, Post_Articles, Comment, Likes
+from blog.models import Category_Master, Articles, Post_Articles, Comments, Likes
 
 class PostArticlesInline(admin.TabularInline):
     model = Post_Articles
@@ -23,7 +23,7 @@ class PostArticlesAdmin(admin.ModelAdmin):
 class CategoryMasterAdmin(admin.ModelAdmin):
     readonly_fields = ["id", "created_at"]
 
-@admin.register(Comment)
+@admin.register(Comments)
 class CommentAdmin(admin.ModelAdmin):
     readonly_fields = ["id", "created_at"]
 

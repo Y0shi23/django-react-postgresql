@@ -9,6 +9,7 @@ import About from './components/About';
 import BlogCard from './components/BlogCard';
 //import Comment from './components/Comment';
 import BlogMainText from './components/BlogMainText.tsx';
+import VocabularyRegister from './components/vocabulary';
 
 import './css/components/body.css'
 
@@ -39,6 +40,11 @@ createRoot(document.getElementById('root')!).render(
                 <Route path="/blog/:id" element={
                     <React.Fragment>
                         <BlogMainText />
+                    </React.Fragment>
+                } />
+                <Route path="/vocabulary/register" element={
+                    <React.Fragment>
+                        <VocabularyRegister />
                     </React.Fragment>
                 } />
                 {/* 404ページ（必要に応じて有効化） */}

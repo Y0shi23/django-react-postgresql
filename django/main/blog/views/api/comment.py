@@ -1,13 +1,13 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from blog.models import Comment, Articles
+from blog.models import Comments, Articles
 from blog.serializers.CommentSerializer import CommentSerializer
 
 class PostCommentView(APIView):
     def get(self, request, post_id):
         # post_idに紐づくコメントを取得
-        comments = Comment.objects.filter(article_id=post_id)
+        comments = Comments.objects.filter(article_id=post_id)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     

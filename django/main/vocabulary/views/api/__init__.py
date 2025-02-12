@@ -1,0 +1,1 @@
+from vocabulary.views.api.RegisterView import RegisterView

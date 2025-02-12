@@ -1,0 +1,12 @@
+# migrationの方法
+## python manage.py makemigrations
+## 確認用
+## python manage.py sqlmigrate blog 0001
+## python manage.py showmigrations
+
+# migration実行
+## python manage.py migrate
+
+# migrationのリセット
+## python manage.py showmigrations
+## python manage.py migrate blog zero
