@@ -1,12 +1,12 @@
 services:
-  git-container:
-    build:
-      context: .
-      dockerfile: ./git-container/Dockerfile
-    volumes:
-      - ./:/var/www/
-      - ./.ssh:/root/.ssh
-    tty: true
+  #git-container:
+  #  build:
+  #    context: .
+  #    dockerfile: ./git-container/Dockerfile
+  #  volumes:
+  #    - ./:/var/www/
+  #    - ./.ssh:/root/.ssh
+  #  tty: true
 
   # react.js
   react:
@@ -27,6 +27,28 @@ services:
     tty: true
     networks:
       - mynetwork
+
+  chat:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5174:5174"
+    volumes:
+      - ./frontend/chatbot:/app
+      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_API_URL=http://fumi042-server.top/gin/
+      - NEXT_PUBLIC_BASE_PATH=/zxcvbnm
+      - NODE_ENV=development
+      - HOSTNAME=0.0.0.0
+      - PORT=5174
+      - PATH=/app/node_modules/.bin:$PATH
+    tty: true
+    networks:
+      - mynetwork
+    depends_on:
+      - gin
   # Python(Django)
   django:
     build:
@@ -47,7 +69,31 @@ services:
       - mynetwork
     depends_on:
       - db
-      
+  gin:
+    build:
+      context: ./gin
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./gin/app:/app/src
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DB_HOST=${POSTGRES_HOST}
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASS}
+      - DB_NAME=${POSTGRES_DB2}
+      - DB_PORT=${DB_PORT}
+      - JWT_SECRET=${JWT_SECRET}
+    tty: true 
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      mynetwork:
+        aliases:
+          - backend
+
   # PostgreSQL
   db:
     image: postgres:16.4
@@ -58,10 +104,17 @@ services:
     #  - ./db:/var/log
     environment:
       POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_DB : ${POSTGRES_DB}
+      DB_PORT: ${DB_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_DB2: ${POSTGRES_DB2}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASS}
-      DB_PORT: ${DB_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - mynetwork
       

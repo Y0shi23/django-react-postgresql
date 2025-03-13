@@ -1,0 +1,80 @@
+services:
+  # PostgreSQLデータベース
+  # PostgreSQL
+  db:
+    image: postgres:16.4
+    ports:
+      - 5432:5432
+    volumes:
+      - ./PostgreSQL:/var/lib/postgresql/data
+    #  - ./db:/var/log
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB : ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS}
+      DB_PORT: ${DB_PORT}
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # Goバックエンド（Gin）
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend/app:/app/src
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DB_HOST=db
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASS}
+      - DB_NAME=${POSTGRES_DB}
+      - DB_PORT=5432
+      - JWT_SECRET=${JWT_SECRET}
+    tty: true 
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      mynetwork:
+        aliases:
+          - backend
+
+  # フロントエンド（Next.js）
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/chatbot:/app
+      - /app/node_modules
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
+      - NODE_ENV=development
+      - HOSTNAME=0.0.0.0
+      - PORT=5173
+    tty: true
+    networks:
+      - mynetwork
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  
+networks:
+  mynetwork:
+    driver: bridge
+  default:
+    driver: bridge
