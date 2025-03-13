@@ -28,7 +28,8 @@ services:
     networks:
       - mynetwork
 
-  chat:
+  # Next.jsフロントエンド
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -49,6 +50,7 @@ services:
       - mynetwork
     depends_on:
       - gin
+
   # Python(Django)
   django:
     build:

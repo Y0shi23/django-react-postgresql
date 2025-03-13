@@ -8,6 +8,9 @@ COPY chatbot/package*.json ./
 # 依存関係のインストール
 RUN npm install
 
+# グローバルにnext CLIをインストール
+RUN npm install -g next
+
 # ソースコードをコピー
 COPY chatbot/ .
 
