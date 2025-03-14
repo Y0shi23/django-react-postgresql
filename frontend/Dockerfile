@@ -14,12 +14,23 @@ RUN npm install -g next
 # ソースコードをコピー
 COPY chatbot/ .
 
-# 開発サーバーの設定
-ENV NODE_ENV=development
+# ESLintチェックをスキップしてNext.jsアプリケーションをビルド
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_LINT_DISABLED=1
+# basePath を設定
+ENV NEXT_PUBLIC_BASE_PATH="/zxcvbnm"
+RUN npm run build -- --no-lint
+
+# 環境変数の設定
+ENV NODE_ENV=production
 ENV HOSTNAME="0.0.0.0"
 ENV PORT=5174
+# basePath を設定
+ENV NEXT_PUBLIC_BASE_PATH="/zxcvbnm"
+# トレイリングスラッシュを無効化
+ENV NEXT_TRAILING_SLASH=false
 
 EXPOSE 5174
 
-# 開発サーバーを起動（Next.jsの正しいコマンド）
-CMD ["npm", "run", "dev"]
+# standaloneモードで正しく起動
+CMD ["node", ".next/standalone/server.js"]

@@ -1,16 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
-    // sePath: '/zxcvbnm', // 静的ファイルのパスを正しく生成するために必要
+    basePath: '/zxcvbnm', // 先頭にスラッシュを追加
+    assetPrefix: process.env.NODE_ENV === 'production' ? '/zxcvbnm' : '', // アセットプレフィックスのみ設定
     // 404ページのフォールバック設定
     async rewrites() {
       return [
+        // 他のパスのリダイレクト
         {
           source: '/:path*',
           destination: '/:path*',
         },
       ];
     },
+    // トレイリングスラッシュの設定
+    trailingSlash: false, // トレイリングスラッシュを無効化
     experimental: {
       // appDirは最新のNext.jsでは不要
     },
