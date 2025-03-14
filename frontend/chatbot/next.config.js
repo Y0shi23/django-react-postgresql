@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
-    basePath: '/zxcvbnm',
+    // sePath: '/zxcvbnm', // 静的ファイルのパスを正しく生成するために必要
     // 404ページのフォールバック設定
     async rewrites() {
       return [
         {
-          source: '/zxcvbnm/:path*',
+          source: '/:path*',
           destination: '/:path*',
         },
       ];

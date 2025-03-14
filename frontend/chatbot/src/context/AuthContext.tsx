@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       console.log('ユーザー情報取得前のトークン:', authToken.substring(0, 10) + '...'); // セキュリティのため全トークンは表示しない
       
       // Use the API URL from environment variables or fallback to localhost
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/zxcvbnm';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
       const meUrl = `${apiUrl}/api/auth/me`;
       console.log('Using me URL:', meUrl);
       
@@ -240,7 +240,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       console.log('Attempting to login with:', email);
       
       // Use the API URL from environment variables or fallback to localhost
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/zxcvbnm';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
       const loginUrl = `${apiUrl}/api/auth/login`;
       console.log('Using login URL:', loginUrl);
       
@@ -313,7 +313,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       // バックエンドの修正が完了するまでの一時的な対応策として、
       // ログイン成功時には即座にチャットページにリダイレクトする
       console.log('Redirecting to /chat immediately after successful login');
-      window.location.href = '/zxcvbnm/chat';
+      window.location.href = '/chat';
       
       setError(null);
       

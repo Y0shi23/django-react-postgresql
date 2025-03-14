@@ -13,16 +13,16 @@ export default function Navigation() {
   
   const handleLogout = () => {
     logout();
-    router.push('/zxcvbnm/');
+    router.push('/');
   };
 
   // パスがnullの場合は空文字列を使用
   const path = pathname || '';
   
   // チャット関連のページかどうかを判定
-  const isChatPage = path.startsWith('/zxcvbnm/chat');
+  const isChatPage = path.startsWith('/chat');
   // サーバー/チャンネル関連のページかどうかを判定
-  const isServerPage = path.startsWith('/zxcvbnm/channels');
+  const isServerPage = path.startsWith('/channels');
   // サイドバーを表示するページかどうか
   const showSidebar = isChatPage || isServerPage;
   
@@ -52,7 +52,7 @@ export default function Navigation() {
               </svg>
             </button>
           )}
-          <Link href="/zxcvbnm/" className="text-xl font-bold">
+          <Link href="/" className="text-xl font-bold">
             ChatBot
           </Link>
         </div>
@@ -60,7 +60,7 @@ export default function Navigation() {
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
               <Link 
-                href="/zxcvbnm/chat" 
+                href="/chat" 
                 className={`px-3 py-1 rounded text-white text-sm ${
                   isChatPage ? 'bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
@@ -68,7 +68,7 @@ export default function Navigation() {
                 チャット
               </Link>
               <Link 
-                href="/zxcvbnm/channels" 
+                href="/channels" 
                 className={`px-3 py-1 rounded text-white text-sm ${
                   isServerPage ? 'bg-blue-700' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
@@ -88,17 +88,17 @@ export default function Navigation() {
           ) : (
             <div className="flex gap-2">
               <Link 
-                href="/zxcvbnm/login" 
+                href="/login" 
                 className={`bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white text-sm ${
-                  path === '/zxcvbnm/login' ? 'bg-blue-700' : ''
+                  path === '/login' ? 'bg-blue-700' : ''
                 }`}
               >
                 ログイン
               </Link>
               <Link 
-                href="/zxcvbnm/register" 
+                href="/register" 
                 className={`bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-white text-sm ${
-                  path === '/zxcvbnm/register' ? 'bg-green-700' : ''
+                  path === '/register' ? 'bg-green-700' : ''
                 }`}
               >
                 新規登録
