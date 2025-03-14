@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     output: 'standalone',
-    basePath: '/zxcvbnm', // 先頭にスラッシュを追加
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/zxcvbnm' : '', // アセットプレフィックスのみ設定
+    basePath: '/zxcvbnm',
+    assetPrefix: '/zxcvbnm',
     // 404ページのフォールバック設定
     async rewrites() {
       return [
@@ -15,9 +15,22 @@ const nextConfig = {
     },
     // トレイリングスラッシュの設定
     trailingSlash: false, // トレイリングスラッシュを無効化
-    experimental: {
-      // appDirは最新のNext.jsでは不要
+    // 静的ファイルの設定
+    images: {
+      unoptimized: true, // 画像の最適化を無効化
     },
+    // 静的ファイルの処理を設定
+    distDir: '.next',
+    // publicディレクトリの設定
+    publicRuntimeConfig: {
+      basePath: '/zxcvbnm',
+    },
+    // 実行時の設定
+    serverRuntimeConfig: {
+      basePath: '/zxcvbnm',
+    },
+    // 静的ファイルの処理を設定
+    poweredByHeader: false,
     // 開発サーバーの設定
     webpack: (config, { isServer, dev }) => {
       if (dev && !isServer) {
